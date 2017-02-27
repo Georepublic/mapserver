@@ -5303,6 +5303,7 @@ static int msOGRLayerGetAutoStyle(mapObj *map, layerObj *layer, classObj *c,
   if (psInfo->hLastFeature) {
     OGRStyleMgrH hStyleMgr = OGR_SM_Create(NULL);
     OGR_SM_InitFromFeature(hStyleMgr, psInfo->hLastFeature);
+    c->text.type = -1; 
     nRetVal = msOGRUpdateStyle(hStyleMgr, map, layer, c);
     OGR_SM_Destroy(hStyleMgr);
   }

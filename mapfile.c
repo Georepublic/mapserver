@@ -2265,10 +2265,11 @@ int loadExpressionString(expressionObj *exp, char *value)
   msyystring = value;
   msyylex(); /* sets things up but processes no tokens */
 
+  int isauto = (exp->type == -1) ? 1 : 0;
   msFreeExpression(exp); /* we're totally replacing the old expression so free (which re-inits) to start over */
 
   msyystring_icase = MS_TRUE;
-  if((exp->type = getSymbol2(5, MS_EXPRESSION,MS_REGEX,MS_IREGEX,MS_ISTRING,MS_LIST)) != -1) {
+  if(!isauto && (exp->type = getSymbol2(5, MS_EXPRESSION,MS_REGEX,MS_IREGEX,MS_ISTRING,MS_LIST)) != -1) {
     exp->string = msStrdup(msyystring_buffer);
 
     if(exp->type == MS_ISTRING) {
